@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf dist && cpy \"src/**/*\" dist",
+    "start": "node dist/index.js",
     "dev": "node --watch src/index.js"
   },
   "keywords": [],
@@ -16,5 +18,9 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongoose": "^9.7.3"
+  },
+  "devDependencies": {
+    "cpy-cli": "^7.0.0",
+    "rimraf": "^6.1.3"
   }
 }
