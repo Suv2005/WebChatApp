@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import "dotenv/config";
+import fs from "fs";
+import path from "path";
 
 import { clerkMiddleware } from '@clerk/nextjs/server'
 
@@ -13,6 +15,8 @@ app.use(clerkMiddleware());
 const PORT = process.env.PORT;
 const FRONT_END_URL = process.env.FRONT_END_URL;
 
+const publicDir = path.join(process.cwd(), "public");
+
 app.use(express.json());
 app.use(cors({ origin: FRONT_END_URL , credentials: true }));
 
@@ -20,6 +24,13 @@ app.get("/health", (req, res) => {
     res.status(200).json({ok : true});
 });
 
+if(fs.existsSync(publicDir)) {
+    app.use(express.static(publicDir));
+
+    app.get("/{*any}", (req, res) => {
+        res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
+    });
+}
 app.listen(PORT, () => {
     connectDB();
     console.log("Server is running on port", PORT)
