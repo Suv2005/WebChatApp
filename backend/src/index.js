@@ -4,6 +4,7 @@ import "dotenv/config";
 import fs from "fs";
 import path from "path";
 import job from "./lib/cron.js"; 
+import clerkWebhook from "./webhooks/clerk.js";
 
 import { clerkMiddleware } from '@clerk/express';
 
