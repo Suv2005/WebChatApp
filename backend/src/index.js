@@ -7,12 +7,12 @@ import job from "./lib/cron.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
-
+import { server, app } from "./lib/socket.js";
 import { clerkMiddleware } from '@clerk/express';
 
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
-const app = express();
+
 app.use("/api/webhooks/clerk", express.raw({type : "application/json"}) , clerkWebhook);
 app.use(clerkMiddleware());
 
@@ -39,7 +39,7 @@ if(fs.existsSync(publicDir)) {
         res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
     });
 }
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectDB();
     console.log("Server is running on port", PORT)
     if(process.env.NODE_ENV === "production"){
