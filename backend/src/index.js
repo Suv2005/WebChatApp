@@ -3,6 +3,7 @@ import cors from 'cors';
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
+import job from "./lib/cron.js"; 
 
 import { clerkMiddleware } from '@clerk/express';
 
