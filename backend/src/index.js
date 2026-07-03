@@ -10,7 +10,7 @@ import { clerkMiddleware } from '@clerk/express';
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 const app = express();
-
+app.use("/api/webhooks/clerk", express.raw({type : "application/json"}) , clerkWebhook);
 app.use(clerkMiddleware());
 
 const PORT = process.env.PORT;
