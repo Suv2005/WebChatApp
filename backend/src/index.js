@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import job from "./lib/cron.js"; 
 import clerkWebhook from "./webhooks/clerk.webhook.js";
+import authRouter from "./routes/auth.route.js";
 
 import { clerkMiddleware } from '@clerk/express';
 
@@ -25,6 +26,8 @@ app.use(cors({ origin: FRONT_END_URL , credentials: true }));
 app.get("/health", (req, res) => {
     res.status(200).json({ok : true});
 });
+
+app.use("/api/auth", authRouter);
 
 if(fs.existsSync(publicDir)) {
     app.use(express.static(publicDir));
