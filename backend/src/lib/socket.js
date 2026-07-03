@@ -26,4 +26,4 @@ const getReceiverSocketId = (receiverID) => {
     return userSocketMap[receiverID];
 };
 
-export { io, userSocketMap, server, getReceiverSocketId };
+export { app, io, userSocketMap, server, getReceiverSocketId };
